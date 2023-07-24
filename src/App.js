@@ -1,7 +1,7 @@
 import './App.css';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
-import AuthDetails from './components/AuthDetails.jsx';
+import AuthDetails from './components/auth/AuthDetails.jsx';
 
 function App() {
 	return (
