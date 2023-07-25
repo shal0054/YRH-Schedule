@@ -2,7 +2,8 @@ import './App.css';
 // import SignIn from './components/auth/SignIn';
 // import SignUp from './components/auth/SignUp';
 // import AuthDetails from './components/auth/AuthDetails.jsx';
-import Calendar from './pages/Calendar';
+// import Calendar from './pages/Calendar';
+import Admin from './pages/Admin';
 
 function App() {
 	return (
@@ -10,7 +11,8 @@ function App() {
 			{/* <SignIn />
 			<SignUp />
 			<AuthDetails /> */}
-			<Calendar />
+			{/* <Calendar /> */}
+			<Admin />
 		</div>
 	);
 }
