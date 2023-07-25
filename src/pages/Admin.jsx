@@ -23,6 +23,7 @@ const Admin = () => {
 	const [gSheetUrl, setGsheetUrl] = useState('');
 	const [gapiInited, setGapiInited] = useState(false);
 	const [gisInited, setGisInited] = useState(false);
+	const [isSignedIn, setIsSigned] = useState(false);
 
 	/**
 	 * Callback after api.js is loaded.
@@ -63,7 +64,7 @@ const Admin = () => {
 			if (resp.error !== undefined) {
 				throw resp;
 			}
-			// document.getElementById('signout_button').style.visibility = 'visible';
+			setIsSigned(true);
 			document.getElementById('authorize_button').innerText = 'Refresh';
 			await listMajors();
 		};
@@ -136,7 +137,7 @@ const Admin = () => {
 		<div>
 			{!gapiInited && !gisInited && (
 				<form onSubmit={handleSubmit}>
-					<label for='gSheetUrl'>Enter Google Sheet URL </label>
+					<label htmlFor='gSheetUrl'>Enter Google Sheet URL </label>
 					<input
 						type='url'
 						name='gSheetUrl'
@@ -145,16 +146,16 @@ const Admin = () => {
 					<button type='submit'>Submit</button>
 				</form>
 			)}
-			<pre id='content' pre-wrap></pre>
+			<pre id='content' pre-wrap='true'></pre>
 			{gapiInited && gisInited && (
-				<>
-					<button id='authorize_button' onClick={handleAuthClick}>
-						Authorize
-					</button>
-					<button id='signout_button' onClick={handleSignoutClick}>
-						Sign Out
-					</button>
-				</>
+				<button id='authorize_button' onClick={handleAuthClick}>
+					Authorize
+				</button>
+			)}
+			{isSignedIn && (
+				<button id='signout_button' onClick={handleSignoutClick}>
+					Sign Out
+				</button>
 			)}
 		</div>
 	);
