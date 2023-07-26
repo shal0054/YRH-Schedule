@@ -3,7 +3,8 @@ import './App.css';
 // import SignUp from './components/auth/SignUp';
 // import AuthDetails from './components/auth/AuthDetails.jsx';
 // import Calendar from './pages/Calendar';
-import Admin from './pages/Admin';
+import { Admin } from './pages/Admin';
+import ScheduleData from './components/ScheduleData';
 
 function App() {
 	return (
@@ -12,7 +13,7 @@ function App() {
 			<SignUp />
 			<AuthDetails /> */}
 			{/* <Calendar /> */}
-			<Admin />
+			<ScheduleData />
 		</div>
 	);
 }

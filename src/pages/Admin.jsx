@@ -19,7 +19,7 @@ const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
 let tokenClient;
 
-const Admin = () => {
+export const Admin = ({ setScheduleData }) => {
 	const [gSheetUrl, setGsheetUrl] = useState('');
 	const [gapiInited, setGapiInited] = useState(false);
 	const [gisInited, setGisInited] = useState(false);
@@ -66,7 +66,7 @@ const Admin = () => {
 			}
 			setIsSigned(true);
 			document.getElementById('authorize_button').style.visibility = 'hidden';
-			await listMajors();
+			await getScheduleData();
 		};
 
 		if (window.gapi.client.getToken() === null) {
@@ -99,7 +99,7 @@ const Admin = () => {
 	 * Print the names and majors of students in a sample spreadsheet:
 	 * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
 	 */
-	async function listMajors() {
+	async function getScheduleData() {
 		let response;
 		try {
 			// Fetch first 10 files
@@ -116,9 +116,9 @@ const Admin = () => {
 			document.getElementById('content').innerText = 'No values found.';
 			return;
 		}
-
-		const output = JSON.stringify(range.values);
-		document.getElementById('content').innerText = output;
+		setScheduleData(range.values);
+		// const OUTPUT = JSON.stringify(range);
+		// document.getElementById('content').innerText = OUTPUT;
 	}
 
 	const handleSubmit = ev => {
@@ -142,7 +142,7 @@ const Admin = () => {
 					<button type='submit'>Submit</button>
 				</form>
 			)}
-			<p id='content'></p>
+			{/* <p id='content'></p> */}
 			{gapiInited && gisInited && (
 				<div id='authorize_button'>
 					<p>Authorize Access to Google Sheets</p>
@@ -157,5 +157,3 @@ const Admin = () => {
 		</div>
 	);
 };
-
-export default Admin;
