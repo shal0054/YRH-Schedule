@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 /**
  * Google sheet URL example:
  * https://docs.google.com/spreadsheets/d/1GEU4rCZoDK-6oev5DMvBQrYK3U9RPtgH36elxRYKoMM/edit#gid=1832526413
@@ -65,7 +65,7 @@ const Admin = () => {
 				throw resp;
 			}
 			setIsSigned(true);
-			document.getElementById('authorize_button').innerText = 'Refresh';
+			document.getElementById('authorize_button').style.visibility = 'hidden';
 			await listMajors();
 		};
 
@@ -112,17 +112,13 @@ const Admin = () => {
 			return;
 		}
 		const range = response.result;
-		if (!range || !range.values || range.values.length == 0) {
+		if (!range || !range.values || range.values.length === 0) {
 			document.getElementById('content').innerText = 'No values found.';
 			return;
 		}
-		// Flatten to string to display
-		const output = range.values.reduce(
-			(str, row) => `${str}${row[0]}, ${row[4]}\n`,
-			'Date, Name:\n'
-		);
-		const myOutput = JSON.stringify(range.values[0]);
-		document.getElementById('content').innerText = myOutput;
+
+		const output = JSON.stringify(range.values);
+		document.getElementById('content').innerText = output;
 	}
 
 	const handleSubmit = ev => {
@@ -134,7 +130,7 @@ const Admin = () => {
 	};
 
 	return (
-		<div>
+		<div style={{ padding: '1rem' }}>
 			{!gapiInited && !gisInited && (
 				<form onSubmit={handleSubmit}>
 					<label htmlFor='gSheetUrl'>Enter Google Sheet URL </label>
@@ -146,11 +142,12 @@ const Admin = () => {
 					<button type='submit'>Submit</button>
 				</form>
 			)}
-			<pre id='content' pre-wrap='true'></pre>
+			<p id='content'></p>
 			{gapiInited && gisInited && (
-				<button id='authorize_button' onClick={handleAuthClick}>
-					Authorize
-				</button>
+				<div id='authorize_button'>
+					<p>Authorize Access to Google Sheets</p>
+					<button onClick={handleAuthClick}>Authorize</button>
+				</div>
 			)}
 			{isSignedIn && (
 				<button id='signout_button' onClick={handleSignoutClick}>
