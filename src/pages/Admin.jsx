@@ -89,7 +89,6 @@ export const Admin = ({ setScheduleData }) => {
 			window.gapi.client.setToken('');
 			setGapiInited(false);
 			setGisInited(false);
-			document.getElementById('content').innerText = '';
 			document.getElementById('authorize_button').innerText = 'Authorize';
 			document.getElementById('signout_button').style.visibility = 'hidden';
 		}
@@ -105,20 +104,19 @@ export const Admin = ({ setScheduleData }) => {
 			// Fetch first 10 files
 			response = await window.gapi.client.sheets.spreadsheets.values.get({
 				spreadsheetId: '1GEU4rCZoDK-6oev5DMvBQrYK3U9RPtgH36elxRYKoMM',
-				range: 'August!A1:M35',
+				range: 'August!A1:S40',
 			});
 		} catch (err) {
-			document.getElementById('content').innerText = err.message;
+			console.warn(err.message);
 			return;
 		}
 		const range = response.result;
 		if (!range || !range.values || range.values.length === 0) {
-			document.getElementById('content').innerText = 'No values found.';
+			console.warn('No values found.');
 			return;
 		}
+
 		setScheduleData(range.values);
-		// const OUTPUT = JSON.stringify(range);
-		// document.getElementById('content').innerText = OUTPUT;
 	}
 
 	const handleSubmit = ev => {
@@ -142,7 +140,6 @@ export const Admin = ({ setScheduleData }) => {
 					<button type='submit'>Submit</button>
 				</form>
 			)}
-			{/* <p id='content'></p> */}
 			{gapiInited && gisInited && (
 				<div id='authorize_button'>
 					<p>Authorize Access to Google Sheets</p>
