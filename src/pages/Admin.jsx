@@ -21,6 +21,7 @@ let tokenClient;
 
 export const Admin = ({ setScheduleData }) => {
 	const [gSheetUrl, setGsheetUrl] = useState('');
+	const [sheetId, setSheetId] = useState('');
 	const [gapiInited, setGapiInited] = useState(false);
 	const [gisInited, setGisInited] = useState(false);
 	const [isSignedIn, setIsSigned] = useState(false);
@@ -103,7 +104,7 @@ export const Admin = ({ setScheduleData }) => {
 		try {
 			// Fetch first 10 files
 			response = await window.gapi.client.sheets.spreadsheets.values.get({
-				spreadsheetId: '1GEU4rCZoDK-6oev5DMvBQrYK3U9RPtgH36elxRYKoMM',
+				spreadsheetId: sheetId,
 				range: 'August!A1:S40',
 			});
 		} catch (err) {
@@ -123,8 +124,7 @@ export const Admin = ({ setScheduleData }) => {
 		ev.preventDefault();
 		gapiLoaded();
 		gisLoaded();
-		const sheetId = gSheetUrl.split('/')[5];
-		console.log(sheetId);
+		setSheetId(gSheetUrl.split('/')[5]);
 	};
 
 	return (
