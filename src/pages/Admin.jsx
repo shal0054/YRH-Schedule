@@ -21,7 +21,7 @@ let tokenClient;
 
 export const Admin = ({ setScheduleData }) => {
 	const [gSheetUrl, setGsheetUrl] = useState('');
-	const [sheetId, setSheetId] = useState('');
+	const [spreadSheetId, setSpreadSheetId] = useState('');
 	const [gapiInited, setGapiInited] = useState(false);
 	const [gisInited, setGisInited] = useState(false);
 	const [isSignedIn, setIsSigned] = useState(false);
@@ -67,7 +67,7 @@ export const Admin = ({ setScheduleData }) => {
 			}
 			setIsSigned(true);
 			document.getElementById('authorize_button').style.visibility = 'hidden';
-			await getScheduleData();
+			await getAllSheets();
 		};
 
 		if (window.gapi.client.getToken() === null) {
@@ -95,36 +95,32 @@ export const Admin = ({ setScheduleData }) => {
 		}
 	}
 
-	/**
-	 * Print the names and majors of students in a sample spreadsheet:
-	 * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-	 */
-	async function getScheduleData() {
+	async function getAllSheets() {
 		let response;
 		try {
-			// Fetch first 10 files
-			response = await window.gapi.client.sheets.spreadsheets.values.get({
-				spreadsheetId: sheetId,
-				range: 'August!A1:S40',
+			response = await window.gapi.client.sheets.spreadsheets.values.batchGet({
+				spreadsheetId: spreadSheetId,
+				ranges: ['July!A1:S40', 'August!A1:S40'],
 			});
 		} catch (err) {
 			console.warn(err.message);
 			return;
 		}
 		const range = response.result;
-		if (!range || !range.values || range.values.length === 0) {
+		if (!range || !range.valueRanges || range.valueRanges.length === 0) {
 			console.warn('No values found.');
 			return;
 		}
 
-		setScheduleData(range.values);
+		console.log(range);
+		setScheduleData(range.valueRanges);
 	}
 
 	const handleSubmit = ev => {
 		ev.preventDefault();
 		gapiLoaded();
 		gisLoaded();
-		setSheetId(gSheetUrl.split('/')[5]);
+		setSpreadSheetId(gSheetUrl.split('/')[5]);
 	};
 
 	return (

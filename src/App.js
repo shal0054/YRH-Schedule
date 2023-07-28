@@ -2,8 +2,7 @@ import './App.css';
 // import SignIn from './components/auth/SignIn';
 // import SignUp from './components/auth/SignUp';
 // import AuthDetails from './components/auth/AuthDetails.jsx';
-// import Calendar from './pages/Calendar';
-import { Admin } from './pages/Admin';
+import Calendar from './pages/Calendar';
 import ScheduleData from './components/ScheduleData';
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
 			{/* <SignIn />
 			<SignUp />
 			<AuthDetails /> */}
-			{/* <Calendar /> */}
+			<Calendar />
 			<ScheduleData />
 		</div>
 	);
