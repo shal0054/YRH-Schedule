@@ -100,7 +100,20 @@ export const Admin = ({ setScheduleData }) => {
 		try {
 			response = await window.gapi.client.sheets.spreadsheets.values.batchGet({
 				spreadsheetId: spreadSheetId,
-				ranges: ['July!A1:S40', 'August!A1:S40'],
+				ranges: [
+					'January!A1:S40',
+					'February!A1:S40',
+					'March!A1:S40',
+					'April!A1:S40',
+					'May!A1:S40',
+					'June!A1:S40',
+					'July!A1:S40',
+					'August!A1:S40',
+					'September!A1:S40',
+					'October!A1:S40',
+					'November!A1:S40',
+					'December!A1:S40',
+				],
 			});
 		} catch (err) {
 			console.warn(err.message);
