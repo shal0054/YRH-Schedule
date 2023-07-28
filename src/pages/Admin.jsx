@@ -111,8 +111,7 @@ export const Admin = ({ setScheduleData }) => {
 			console.warn('No values found.');
 			return;
 		}
-
-		console.log(range);
+		// console.log(range.valueRanges[0].values);
 		setScheduleData(range.valueRanges);
 	}
 
