@@ -4,7 +4,7 @@ import { useState } from 'react';
  * https://docs.google.com/spreadsheets/d/1GEU4rCZoDK-6oev5DMvBQrYK3U9RPtgH36elxRYKoMM/edit#gid=1832526413
  */
 
-// TODO(developer): Set to client ID and API key from the Developer Console
+// TODO:(developer): Set to client ID and API key from the Developer Console
 const CLIENT_ID =
 	'84466830408-54j3q58872a6h127r9je6qd5266jqqj5.apps.googleusercontent.com';
 const API_KEY = 'AIzaSyDZyi1CV8Q0zgPWr5bzv4-uDWZVL-trvF8';
@@ -114,6 +114,7 @@ export const Admin = ({ setScheduleData }) => {
 					'November!A1:S40',
 					'December!A1:S40',
 				],
+				includeGridData: true,
 			});
 		} catch (err) {
 			console.warn(err.message);
@@ -124,8 +125,8 @@ export const Admin = ({ setScheduleData }) => {
 			console.warn('No values found.');
 			return;
 		}
-		// console.log(range.valueRanges[0].values);
-		setScheduleData(range.valueRanges);
+		console.log(range);
+		// setScheduleData(range.valueRanges);
 	}
 
 	const handleSubmit = ev => {

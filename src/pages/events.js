@@ -21957,5 +21957,6 @@ export const INITIAL_EVENTS = [
 		end: '2024-01-04T17:00:00',
 		id: 3700,
 		title: 'IM Resident Clinics — Dr. Persaud (Moses)',
+		backgroundColor: `rgb(${1 * 255}, ${1 * 255}, ${0 * 255})`,
 	},
 ];

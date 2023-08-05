@@ -14,6 +14,9 @@ const Calendar = () => {
 				right: 'dayGridMonth,timeGridWeek,timeGridDay',
 			}}
 			initialView='dayGridMonth'
+			selectable={true}
+			selectMirror={true}
+			dayMaxEvents={true}
 			initialEvents={INITIAL_EVENTS}
 		/>
 	);
