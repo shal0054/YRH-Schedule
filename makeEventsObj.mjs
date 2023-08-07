@@ -28,7 +28,7 @@ function makeCalendarEvents(scheduleData) {
 				}
 
 				if (!doc.formattedValue) return;
-				const bgColorObj = doc.effectiveFormat.backgroundColor;
+				const bgColorObj = doc.backgroundColor;
 
 				function getRgbStr(bgColorObj) {
 					const red = bgColorObj.red ? bgColorObj.red : 0;
@@ -78,8 +78,8 @@ function makeCalendarEvents(scheduleData) {
 		});
 	});
 
-	// console.log(calendarEvents);
-	// console.log(JSON.stringify(calendarEvents));
+	console.log(calendarEvents);
+	console.log(JSON.stringify(calendarEvents));
 }
 
 function nextDay(dateStr) {
