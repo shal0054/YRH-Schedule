@@ -21,7 +21,6 @@ let tokenClient;
 
 export const Admin = ({ setScheduleData }) => {
 	const [gSheetUrl, setGsheetUrl] = useState('');
-	const [spreadSheetId, setSpreadSheetId] = useState('');
 	const [gapiInited, setGapiInited] = useState(false);
 	const [gisInited, setGisInited] = useState(false);
 	const [isSignedIn, setIsSigned] = useState(false);
@@ -99,7 +98,7 @@ export const Admin = ({ setScheduleData }) => {
 		let response;
 		try {
 			response = await window.gapi.client.sheets.spreadsheets.values.batchGet({
-				spreadsheetId: spreadSheetId,
+				spreadsheetId: gSheetUrl.split('/')[5],
 				ranges: [
 					'January!A1:S40',
 					'February!A1:S40',
@@ -133,7 +132,6 @@ export const Admin = ({ setScheduleData }) => {
 		ev.preventDefault();
 		gapiLoaded();
 		gisLoaded();
-		setSpreadSheetId(gSheetUrl.split('/')[5]);
 	};
 
 	return (
